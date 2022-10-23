@@ -20,7 +20,7 @@ class IkenCoin extends StatelessWidget {
         //'/help': (BuildContext context) => HelpPage(),
         //'/help_detail': (BuildContext context) => HelpDetail(),
       },
-      title: 'なかのと',
+      title: 'あいぽい',
       theme: ThemeData(
         primarySwatch: Styles.primarySwatch,
         primaryColor: Styles.primaryColor,

@@ -148,8 +148,8 @@ class TopPage extends ConsumerWidget {
       decoration: const BoxDecoration(
         color: Styles.primaryColor,
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(10),
-          topRight: Radius.circular(10),
+          topLeft: Radius.circular(15),
+          topRight: Radius.circular(15),
         ),
       ),
       width: shortestSide / 1.1,
@@ -174,15 +174,49 @@ class TopPage extends ConsumerWidget {
           color: Styles.primaryColor,
         ),
         borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(10),
-          bottomRight: Radius.circular(10),
+          bottomLeft: Radius.circular(15),
+          bottomRight: Radius.circular(15),
         ),
       ),
       width: shortestSide / 1.1,
       height: shortestSide / 3.5,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15.0),
-        child: Row(
+        child: Column(mainAxisAlignment: MainAxisAlignment.spaceAround,
+            //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  '現在のポイント数は...',
+                  style: TextStyle(
+                      fontSize: shortestSide / 30,
+                      color: Styles.commonTextColor,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+              Container(
+                alignment: Alignment.center,
+                child: Text(
+                  point.point.toString(),
+                  style: TextStyle(
+                      fontSize: shortestSide / 12,
+                      fontWeight: FontWeight.bold,
+                      color: Styles.commonTextColor),
+                ),
+              ),
+              Container(
+                alignment: Alignment.centerRight,
+                child: Text(
+                  'ポイントです！',
+                  style: TextStyle(
+                      fontSize: shortestSide / 30,
+                      fontWeight: FontWeight.bold,
+                      color: Styles.commonTextColor),
+                ),
+              )
+            ]),
+        /*child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Expanded(
@@ -227,7 +261,7 @@ class TopPage extends ConsumerWidget {
               ),
             ),
           ],
-        ),
+        ),*/
       ),
     );
   }
