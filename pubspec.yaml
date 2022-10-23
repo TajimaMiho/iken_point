@@ -38,11 +38,20 @@ dependencies:
   firebase_auth: ^1.0.1
   cloud_firestore: ^3.1.13
   provider: ^6.0.3
+  flutter_riverpod: ^1.0.3
+  google_fonts: ^3.0.1
+  mobile_scanner: ^2.0.0
+  
 
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_gen_runner: ^4.2.1
+  build_runner: ^2.1.11
+  freezed: ^2.0.3+1
+  json_serializable: ^6.1.4
+
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -58,5 +67,7 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - images/もなか.jpeg
-    - images/高級アイス.png
+    - images/100p.png
+    - images/ICE_CARD1.png
+    - images/ICE_CARD2.png
+    - images/Point.png
