@@ -117,21 +117,22 @@ class LoginPage extends ConsumerWidget {
               const SizedBox(
                 height: 8,
               ),
-              // isLoginMode
-              //     ? SizedBox(
-              //         width: double.infinity,
-              //         child: TextButton(
-              //             child: const Text('新規登録はこちら'),
-              //             onPressed: () async {
-              //               ref.read(loginProvider.notifier).changeMode(false);
-              //             }))
-              //     : SizedBox(
-              //         width: double.infinity,
-              //         child: TextButton(
-              //             child: const Text('ログイン'),
-              //             onPressed: () async {
-              //               ref.read(loginProvider.notifier).changeMode(true);
-              //             })),
+              //新規登録を消したい場合は以下を消す！
+              isLoginMode
+                  ? SizedBox(
+                      width: double.infinity,
+                      child: TextButton(
+                          child: const Text('新規登録はこちら'),
+                          onPressed: () async {
+                            ref.read(loginProvider.notifier).changeMode(false);
+                          }))
+                  : SizedBox(
+                      width: double.infinity,
+                      child: TextButton(
+                          child: const Text('ログイン'),
+                          onPressed: () async {
+                            ref.read(loginProvider.notifier).changeMode(true);
+                          })),
               const SizedBox(
                 height: 8,
               ),
