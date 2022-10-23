@@ -27,21 +27,22 @@ class TopPage extends ConsumerWidget {
           color: Styles.pageBackground,
           child: ListView(
             children: [
+              SizedBox(height: shortestSide / 20),
               //buildNewsBand(shortestSide),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  buildPointBand(shortestSide, point),
                   Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    //crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      //buildQRAndPointIcons(iconSize, context),
                       Align(
-                        alignment: Alignment.topRight,
+                        //alignment: Alignment.topRight,
                         child: buildNameBand(shortestSide, point),
                       ),
                     ],
                   ),
+                  buildPointBand(shortestSide, point),
                   /*Row(
                     children: [
                       ThumbnailImage(
@@ -147,17 +148,18 @@ class TopPage extends ConsumerWidget {
       decoration: const BoxDecoration(
         color: Styles.primaryColor,
         borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(8),
+          topLeft: Radius.circular(10),
+          topRight: Radius.circular(10),
         ),
       ),
-      width: shortestSide / 1.9,
+      width: shortestSide / 1.1,
       height: 50,
       child: Text(
         point.name,
         textAlign: TextAlign.center,
         style: TextStyle(
             fontSize: shortestSide / 19,
-            color: Styles.commonTextColor,
+            color: Styles.secondaryTextColor,
             fontWeight: FontWeight.bold),
       ),
     );
@@ -171,7 +173,12 @@ class TopPage extends ConsumerWidget {
           width: 6,
           color: Styles.primaryColor,
         ),
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(10),
+          bottomRight: Radius.circular(10),
+        ),
       ),
+      width: shortestSide / 1.1,
       height: shortestSide / 3.5,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15.0),
