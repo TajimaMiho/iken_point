@@ -43,6 +43,11 @@ class TopPage extends ConsumerWidget {
                     ],
                   ),
                   buildPointBand(shortestSide, point),
+                  SizedBox(
+                    height: shortestSide / 15,
+                  ),
+                  buildExchangeUpBand(shortestSide, point),
+                  buildExchangeDownBand(shortestSide, point),
                   /*Row(
                     children: [
                       ThumbnailImage(
@@ -216,52 +221,148 @@ class TopPage extends ConsumerWidget {
                 ),
               )
             ]),
-        /*child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Expanded(
-              flex: 1,
-              child: Text(
-                '　ポイント\n　残高',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontSize: shortestSide / 20,
-                    color: Styles.commonTextColor,
-                    fontWeight: FontWeight.bold),
-              ),
+      ),
+    );
+  }
+
+  Widget buildExchangeUpBand(double shortestSide, Point point) {
+    return Container(
+      decoration: const BoxDecoration(
+        color: Styles.primaryColor,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(15),
+          topRight: Radius.circular(15),
+        ),
+      ),
+      width: shortestSide / 1.1,
+      height: 50,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        //crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          //Padding(padding: EdgeInsets.symmetric(horizontal: 400)),
+          Text(
+            'アイス券',
+            style: TextStyle(
+                fontSize: shortestSide / 19,
+                color: Styles.secondaryTextColor,
+                fontWeight: FontWeight.bold),
+          ),
+          Container(
+            child: Row(
+              children: [
+                SizedBox(
+                  width: 40,
+                  height: 30,
+                  child: Image.asset('images/ICE_CARD2.png'),
+                ),
+                Text(
+                  '  ×1',
+                  style: TextStyle(
+                      fontSize: shortestSide / 19,
+                      color: Styles.secondaryTextColor,
+                      fontWeight: FontWeight.bold),
+                ),
+              ],
             ),
-            const Padding(
-              padding: EdgeInsets.all(20),
-              child: VerticalDivider(
-                thickness: 1,
-                width: 3,
-                color: Styles.commonTextColor,
-              ),
-            ),
-            Expanded(
-              flex: 2,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    point.point.toString(),
-                    style: TextStyle(
-                        fontSize: shortestSide / 12,
-                        fontWeight: FontWeight.bold,
-                        color: Styles.commonTextColor),
+          ),
+        ],
+      ),
+      /*child: Text(
+        point.name,
+        textAlign: TextAlign.center,
+        style: TextStyle(
+            fontSize: shortestSide / 19,
+            color: Styles.secondaryTextColor,
+            fontWeight: FontWeight.bold),
+      ),*/
+    );
+  }
+
+  Widget buildExchangeDownBand(double shortestSide, Point point) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border.all(
+          width: 6,
+          color: Styles.primaryColor,
+        ),
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(15),
+          bottomRight: Radius.circular(15),
+        ),
+      ),
+      width: shortestSide / 1.1,
+      height: shortestSide / 2.5,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 15.0),
+        child: Column(mainAxisAlignment: MainAxisAlignment.spaceAround,
+            //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+                SizedBox(
+                  width: 80,
+                  height: 80,
+                  child: Image.asset('images/100p.png'),
+                ),
+                Text(
+                  '>>',
+                  style: TextStyle(
+                      fontSize: shortestSide / 19,
+                      color: Styles.commonTextColor,
+                      fontWeight: FontWeight.bold),
+                ),
+                SizedBox(
+                  width: 123,
+                  height: 90,
+                  child: Image.asset('images/ICE_CARD1.png'),
+                ),
+              ]),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.indigo[800],
+                  padding: EdgeInsets.symmetric(horizontal: 48),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(24),
                   ),
-                  Text(
-                    'pt',
-                    style: TextStyle(
-                        fontSize: shortestSide / 18,
-                        fontWeight: FontWeight.bold,
-                        color: Styles.commonTextColor),
-                  ),
-                ],
+                ),
+                onPressed: () {},
+                child: Text('交換する！', style: TextStyle(color: Colors.white)),
               ),
+            ]
+            /*children: [
+              Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  '現在のポイント数は...',
+                  style: TextStyle(
+                      fontSize: shortestSide / 30,
+                      color: Styles.commonTextColor,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+              Container(
+                alignment: Alignment.center,
+                child: Text(
+                  point.point.toString(),
+                  style: TextStyle(
+                      fontSize: shortestSide / 12,
+                      fontWeight: FontWeight.bold,
+                      color: Styles.commonTextColor),
+                ),
+              ),
+              Container(
+                alignment: Alignment.centerRight,
+                child: Text(
+                  'ポイントです！',
+                  style: TextStyle(
+                      fontSize: shortestSide / 30,
+                      fontWeight: FontWeight.bold,
+                      color: Styles.commonTextColor),
+                ),
+              )
+            ]),*/
             ),
-          ],
-        ),*/
       ),
     );
   }
