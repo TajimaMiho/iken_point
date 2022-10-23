@@ -17,37 +17,50 @@ class TopPageRoute extends ConsumerWidget {
     final double iconSize = size.shortestSide / 10; //上のやつに合わせた大きさにする
     return Scaffold(
       body: _pageWidgets.elementAt(_currentIndex), //下のバーの何番（どのページ）をbodyにする
-      bottomNavigationBar: BottomNavigationBar(
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-              //違う画面にいる時
-              icon: _buildNavigationIconWithName(
-                Icon(Icons.home, size: iconSize, color: Styles.secondaryColor),
-                'ホーム',
-              ),
-              //ホーム画面にいるとき
-              activeIcon: _buildNavigationIconWithName(
-                  Icon(Icons.home, size: iconSize, color: Styles.primaryColor),
-                  'ホーム',
-                  isFocus: true),
-              label: 'ホーム'),
-          BottomNavigationBarItem(
-              icon: _buildNavigationIconWithName(
-                  Icon(Icons.list,
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          border: Border(
+            top: BorderSide(
+              width: 3, //太さ
+              color: Styles.primaryColor, //色
+            ),
+          ),
+        ),
+        child: BottomNavigationBar(
+          items: <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+                //違う画面にいる時
+                icon: _buildNavigationIconWithName(
+                  Icon(Icons.home,
                       size: iconSize, color: Styles.secondaryColor),
-                  '設定'),
-              activeIcon: _buildNavigationIconWithName(
-                  Icon(Icons.list, size: iconSize, color: Styles.primaryColor),
-                  '設定',
-                  isFocus: true),
-              label: '設定'),
-        ],
-        currentIndex: _currentIndex,
-        fixedColor: Styles.accentColor,
-        onTap: (int index) {
-          ref.read(currentIndexProvider.state).state = index;
-        },
-        type: BottomNavigationBarType.shifting,
+                  'ホーム',
+                ),
+                //ホーム画面にいるとき
+                activeIcon: _buildNavigationIconWithName(
+                    Icon(Icons.home,
+                        size: iconSize, color: Styles.primaryColor),
+                    'ホーム',
+                    isFocus: true),
+                label: 'ホーム'),
+            BottomNavigationBarItem(
+                icon: _buildNavigationIconWithName(
+                    Icon(Icons.list,
+                        size: iconSize, color: Styles.secondaryColor),
+                    '設定'),
+                activeIcon: _buildNavigationIconWithName(
+                    Icon(Icons.list,
+                        size: iconSize, color: Styles.primaryColor),
+                    '設定',
+                    isFocus: true),
+                label: '設定'),
+          ],
+          currentIndex: _currentIndex,
+          fixedColor: Styles.accentColor,
+          onTap: (int index) {
+            ref.read(currentIndexProvider.state).state = index;
+          },
+          type: BottomNavigationBarType.shifting,
+        ),
       ),
     );
   }
