@@ -18,8 +18,13 @@ class TopPage extends ConsumerWidget {
       //前のページに戻らせたくない時に使う
       onWillPop: willPopCallback,
       child: Scaffold(
+        appBar: AppBar(
+            shape: Border(
+                bottom: BorderSide(color: Styles.primaryColor, width: 3)),
+            title: Text('あいぽい', style: TextStyle(color: Styles.primaryColor)),
+            backgroundColor: Colors.white),
         body: Container(
-          color: Colors.white,
+          color: Styles.pageBackground,
           child: ListView(
             children: [
               //buildNewsBand(shortestSide),

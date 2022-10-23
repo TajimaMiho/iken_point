@@ -23,11 +23,12 @@ abstract class Styles {
   static const Color primaryColor700 = Color(0xFFF1F7D8);
   static const Color accentColor = Color(0xFFf1f7d9);
   static const Color myButtonColor = Color.fromARGB(255, 253, 234, 234);
-  static const Color secondaryColor = Color(0xFF594A31);
+  static const Color secondaryColor = Color(0xFF808080);
   static const Color secondaryColor900 = Color.fromARGB(130, 89, 74, 49);
   static const Color pageBackground = Color(0xFFFFFFE0);
   static const Color appBarTitleColor = pageBackground;
-  static const Color commonTextColor = Color(0xFF594A31);
+  static const Color commonTextColor = Color(0xFF000000);
+  static const Color secondaryTextColor = Color(0xFFFFFFFF);
   static AppBarTheme appBarTheme = AppBarTheme(
     centerTitle: true,
     backgroundColor: Styles.primaryColor,
