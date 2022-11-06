@@ -7,7 +7,7 @@ import 'package:mycloud/view/top/my_page.dart';
 import 'package:mycloud/view/top/top_page.dart';
 
 class TopPageRoute extends ConsumerWidget {
-  final _pageWidgets = [TopPage(), ConfigPage()];
+  final _pageWidgets = [TopPage(), HistoryPoint()];
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -44,15 +44,15 @@ class TopPageRoute extends ConsumerWidget {
                 label: 'ホーム'),
             BottomNavigationBarItem(
                 icon: _buildNavigationIconWithName(
-                    Icon(Icons.list,
+                    Icon(Icons.watch_later_outlined,
                         size: iconSize, color: Styles.secondaryColor),
-                    '設定'),
+                    '履歴'),
                 activeIcon: _buildNavigationIconWithName(
-                    Icon(Icons.list,
+                    Icon(Icons.watch_later_outlined,
                         size: iconSize, color: Styles.primaryColor),
-                    '設定',
+                    '履歴',
                     isFocus: true),
-                label: '設定'),
+                label: '履歴'),
           ],
           currentIndex: _currentIndex,
           fixedColor: Styles.accentColor,

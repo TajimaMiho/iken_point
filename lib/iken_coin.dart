@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mycloud/config/styles.dart';
 import 'package:mycloud/top_page_route.dart';
 import 'package:mycloud/view/login.dart';
+import 'package:mycloud/view/top/my_page.dart';
 import 'package:mycloud/view/top/pay.dart';
 
 class IkenCoin extends StatelessWidget {
@@ -16,8 +17,8 @@ class IkenCoin extends StatelessWidget {
         '/login': (BuildContext context) => Top(),
         '/top': (BuildContext context) => Top(),
         '/pay': (BuildContext context) => PayPage(),
-        /*'/error': (BuildContext context) => ErrorPage(),
-        '/history_point': (BuildContext context) => HistoryPoint(),*/
+        //'/error': (BuildContext context) => ErrorPage(),
+        '/history_point': (BuildContext context) => HistoryPoint(),
         //'/help': (BuildContext context) => HelpPage(),
         //'/help_detail': (BuildContext context) => HelpDetail(),
       },
