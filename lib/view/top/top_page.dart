@@ -1,10 +1,18 @@
+import 'dart:js';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mycloud/config/styles.dart';
 import 'package:mycloud/models/point.dart';
+import 'package:mycloud/provider/login_provider.dart';
 import 'package:mycloud/service/providers_provider.dart';
 import 'package:mycloud/service/will_pop_callback.dart';
+
+final userInputProvider = StateProvider<String>((ref) {
+  return '';
+});
 
 class TopPage extends ConsumerWidget {
   @override
@@ -47,30 +55,7 @@ class TopPage extends ConsumerWidget {
                     height: shortestSide / 15,
                   ),
                   buildExchangeUpBand(shortestSide, point),
-                  buildExchangeDownBand(shortestSide, point),
-                  /*Row(
-                    children: [
-                      ThumbnailImage(
-                        shortestSide * 0.5,
-                        shortestSide * 0.5,
-                        Assets.images.common.dish.path,
-                      ),
-                      Column(
-                        children: [
-                          ThumbnailImage(
-                            shortestSide * 0.5,
-                            shortestSide * 0.5 / 3,
-                            Assets.images.common.orihimeBus.path,
-                          ),
-                          ThumbnailImage(
-                            shortestSide * 0.5,
-                            shortestSide / 3,
-                            Assets.images.common.roadsideStation.path,
-                          )
-                        ],
-                      )
-                    ],
-                  ),*/
+                  buildExchangeDownBand(shortestSide, point, context),
                 ],
               ),
             ],
@@ -79,74 +64,6 @@ class TopPage extends ConsumerWidget {
       ),
     );
   }
-
-  /*Widget buildQRAndPointIcons(double iconSize, BuildContext context) {
-    return Expanded(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 25, right: 13),
-            child: Column(
-              children: [
-                GestureDetector(
-                  child: SvgPicture.asset(
-                    Assets.images.common.icon.qrIc,
-                    width: iconSize,
-                    height: iconSize,
-                    color: Styles.secondaryColor,
-                  ),
-                  onTap: () async {
-                    await Navigator.of(context).pushNamed('/qr');
-                  },
-                ),
-                const Text(
-                  '二次元コード\nスキャン',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                )
-              ],
-            ),
-          ),
-          // Padding(
-          //   padding: const EdgeInsets.only(top: 25, left: 13),
-          //   child:
-          //   Column(
-          //     children: [
-          //       SvgPicture.asset(
-          //         Assets.images.common.icon.pointSend,
-          //         width: iconSize,
-          //         height: iconSize,
-          //         color: Styles.secondaryColor,
-          //       ),
-          //       const Text(
-          //         'ポイント\n送受信',
-          //         style: TextStyle(fontWeight: FontWeight.bold),
-          //       )
-          //     ],
-          //   ),
-          // ),
-        ],
-      ),
-    );
-  }*/
-
-  /*Widget buildNewsBand(double shortestSide) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 15),
-      child: Container(
-        width: shortestSide,
-        height: 70,
-        color: Styles.primaryColor700,
-        child: Center(
-          child: Text('【中能登町】実証実験は8/2〜8/19です。',
-              style: TextStyle(
-                  fontSize: shortestSide / 25,
-                  color: Styles.commonTextColor,
-                  fontWeight: FontWeight.bold)),
-        ),
-      ),
-    );
-  }*/
 
   Widget buildNameBand(double shortestSide, Point point) {
     return Container(
@@ -238,9 +155,7 @@ class TopPage extends ConsumerWidget {
       height: 50,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        //crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          //Padding(padding: EdgeInsets.symmetric(horizontal: 400)),
           Text(
             'アイス券',
             style: TextStyle(
@@ -268,18 +183,10 @@ class TopPage extends ConsumerWidget {
           ),
         ],
       ),
-      /*child: Text(
-        point.name,
-        textAlign: TextAlign.center,
-        style: TextStyle(
-            fontSize: shortestSide / 19,
-            color: Styles.secondaryTextColor,
-            fontWeight: FontWeight.bold),
-      ),*/
     );
   }
 
-  Widget buildExchangeDownBand(double shortestSide, Point point) {
+  Widget buildExchangeDownBand(double shortestSide, Point point, context) {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -326,43 +233,12 @@ class TopPage extends ConsumerWidget {
                     borderRadius: BorderRadius.circular(24),
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () async {
+                  await Navigator.of(context).pushNamed('/pay');
+                },
                 child: Text('交換する！', style: TextStyle(color: Colors.white)),
               ),
-            ]
-            /*children: [
-              Container(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  '現在のポイント数は...',
-                  style: TextStyle(
-                      fontSize: shortestSide / 30,
-                      color: Styles.commonTextColor,
-                      fontWeight: FontWeight.bold),
-                ),
-              ),
-              Container(
-                alignment: Alignment.center,
-                child: Text(
-                  point.point.toString(),
-                  style: TextStyle(
-                      fontSize: shortestSide / 12,
-                      fontWeight: FontWeight.bold,
-                      color: Styles.commonTextColor),
-                ),
-              ),
-              Container(
-                alignment: Alignment.centerRight,
-                child: Text(
-                  'ポイントです！',
-                  style: TextStyle(
-                      fontSize: shortestSide / 30,
-                      fontWeight: FontWeight.bold,
-                      color: Styles.commonTextColor),
-                ),
-              )
-            ]),*/
-            ),
+            ]),
       ),
     );
   }

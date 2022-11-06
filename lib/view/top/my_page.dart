@@ -6,13 +6,8 @@ class ConfigPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('次の画面'),
-      ),
       body: Container(
-        height: double.infinity,
-        color: Colors.red,
-        child: Text("おめでとう！！！"),
+        child: Text("準備中です..."),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
