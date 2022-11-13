@@ -9,14 +9,20 @@ import 'package:mycloud/provider/login_provider.dart';
 import 'package:mycloud/service/providers_provider.dart';
 import 'package:mycloud/service/will_pop_callback.dart';
 
-/*final userInputProvider = StateProvider<String>((ref) {
+final DetailInputProvider = StateProvider<String>((ref) {
   return '';
-});*/
+});
+final numberInputProvider = StateProvider<String>((ref) {
+  return '';
+});
+final EmailInputProvider = StateProvider<String>((ref) {
+  return '';
+});
 
 class GivePoint extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    //String userInput = ref.watch(userInputProvider);
+    String userInput = ref.watch(DetailInputProvider);
     Point point = ref.watch(pointProvider).point;
 
     final Size size = MediaQuery.of(context).size;
@@ -25,7 +31,7 @@ class GivePoint extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "あいすと交換",
+          "おくる",
           style: TextStyle(color: Colors.white),
         ),
       ),
@@ -34,12 +40,34 @@ class GivePoint extends ConsumerWidget {
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              pointTile('現在の\nポイント ', point.point.toString(), shortestSide,
-                  isWhite: true),
-              pointTile(
-                  '消費後の\nポイント ', (point.point - 100).toString(), shortestSide,
-                  isWhite: true),
-              pointTile('　消費 ', '100', shortestSide),
+              TextFormField(
+                decoration: InputDecoration(labelText: 'メールアドレス'),
+                keyboardType: TextInputType.multiline,
+                maxLines: 3,
+                onChanged: (String value) {
+                  // Providerから値を更新
+                  ref.read(EmailInputProvider.notifier).state = value;
+                },
+              ),
+              TextFormField(
+                decoration: InputDecoration(labelText: '詳細'),
+                keyboardType: TextInputType.multiline,
+                maxLines: 3,
+                onChanged: (String value) {
+                  // Providerから値を更新
+                  ref.read(DetailInputProvider.notifier).state = value;
+                },
+              ),
+              TextFormField(
+                decoration: InputDecoration(labelText: '付与ポイント'),
+                keyboardType: TextInputType.number,
+                maxLines: 3,
+                onChanged: (String value) {
+                  // Providerから値を更新
+                  ref.read(numberInputProvider.notifier).state = value;
+                },
+              ),
+              //pointTile('　消費 ', '100', shortestSide),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
@@ -51,12 +79,11 @@ class GivePoint extends ConsumerWidget {
                               MaterialStateProperty.all(Styles.primaryColor),
                         ),
                         child: const Text(
-                          'ポイントを使う',
+                          'ポイントを贈る',
                           style: TextStyle(color: Colors.white),
                         ),
                         onPressed: () {
                           pay(context, ref);
-                          Navigator.of(context).pushNamed('/top');
                         }),
                   ),
                 ],
@@ -66,7 +93,7 @@ class GivePoint extends ConsumerWidget {
     );
   }
 
-  Widget pointTile(String description, String point, double shortestSide,
+  /* Widget pointTile(String description, String point, double shortestSide,
       {bool isWhite = false}) {
     return Padding(
       padding: const EdgeInsets.all(25),
@@ -119,26 +146,33 @@ class GivePoint extends ConsumerWidget {
         ],
       ),
     );
-  }
+  }*/
 
   Future pay(BuildContext context, WidgetRef ref) async {
     var rand = math.Random();
-    //String userInput = ref.watch(userInputProvider);
+    String userInput = ref.watch(DetailInputProvider);
+    String numberInput = ref.watch(numberInputProvider);
+    String EmailInput = ref.watch(EmailInputProvider);
     Point point = ref.watch(pointProvider).point;
     final user = ref.watch(loginProvider);
-    int updatePoint = point.point - 100;
-    int updateUsedPoint = point.usedPoint + 100;
+    if (numberInput.isEmpty ||
+        int.parse(userInput) <= 0 ||
+        point.point < int.parse(userInput)) {
+      return null;
+    }
+    int updatePoint = point.point + int.parse(numberInput);
+    //int updateUsedPoint = point.usedPoint + int.parse(numberInput);
     ref.read(pointProvider.notifier).updatePoint(
-          point.copyWith(point: updatePoint, usedPoint: updateUsedPoint),
+          point.copyWith(point: updatePoint, usedPoint: 0),
         );
 
     final date = DateTime.now().toLocal().toIso8601String();
     await FirebaseFirestore.instance.collection('posts').doc().set({
-      'point_of_change': 100,
-      'transaction': 'pay',
-      'way': 'ice',
+      'point_of_change': numberInput,
+      'transaction': '',
+      'way': userInput,
       'current_point': updatePoint,
-      'email': user.email,
+      'email': EmailInput,
       'date': date
     });
 
@@ -147,9 +181,8 @@ class GivePoint extends ConsumerWidget {
         .doc(user.email)
         .update({
       'point': updatePoint,
-      'used_point': updateUsedPoint,
+      'used_point': 0,
       'date': DateTime.now().toLocal().toIso8601String(),
     });
-    //await Navigator.of(context).pushNamed('/top');
   }
 }
