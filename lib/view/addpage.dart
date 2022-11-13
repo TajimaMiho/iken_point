@@ -9,14 +9,13 @@ import 'package:mycloud/models/point.dart';
 import 'package:mycloud/provider/login_provider.dart';
 import 'package:mycloud/service/providers_provider.dart';
 import 'package:mycloud/service/will_pop_callback.dart';
-
-double titleSize = 24.0;
+import 'package:mycloud/view/top/top_page.dart';
 
 final userInputProvider = StateProvider<String>((ref) {
   return '';
 });
 
-class TopPage extends ConsumerWidget {
+class AddPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     Point point = ref.watch(pointProvider).point;
@@ -31,7 +30,10 @@ class TopPage extends ConsumerWidget {
         appBar: AppBar(
             shape: Border(
                 bottom: BorderSide(color: Styles.primaryColor, width: 3)),
-            title: Text('あいぽい', style: TextStyle(color: Styles.primaryColor)),
+            title: Text('あいぽい',
+                style: TextStyle(
+                  color: Styles.primaryColor,
+                )),
             backgroundColor: Colors.white),
         body: Container(
           color: Styles.pageBackground,
@@ -42,7 +44,6 @@ class TopPage extends ConsumerWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  buildNewsBand(shortestSide),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     //crossAxisAlignment: CrossAxisAlignment.start,
@@ -79,13 +80,26 @@ class TopPage extends ConsumerWidget {
       ),
       width: shortestSide / 1.1,
       height: 50,
-      child: Text(
-        point.name,
-        textAlign: TextAlign.center,
-        style: TextStyle(
-            fontSize: shortestSide / titleSize,
-            color: Styles.secondaryTextColor,
-            fontWeight: FontWeight.bold),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Text(
+            'ウィークリー',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                fontSize: shortestSide / titleSize,
+                color: Styles.secondaryTextColor,
+                fontWeight: FontWeight.bold),
+          ),
+          Text(
+            'Week1',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                fontSize: shortestSide / titleSize,
+                color: Styles.secondaryTextColor,
+                fontWeight: FontWeight.bold),
+          ),
+        ],
       ),
     );
   }
@@ -113,7 +127,7 @@ class TopPage extends ConsumerWidget {
               Container(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  '現在のポイント数は...',
+                  'お題は',
                   style: TextStyle(
                       fontSize: shortestSide / 30,
                       color: Styles.commonTextColor,
@@ -123,23 +137,24 @@ class TopPage extends ConsumerWidget {
               Container(
                 alignment: Alignment.center,
                 child: Text(
-                  point.point.toString(),
+                  '「アクションゲーム」',
                   style: TextStyle(
                       fontSize: shortestSide / 12,
                       fontWeight: FontWeight.bold,
                       color: Styles.commonTextColor),
                 ),
               ),
-              Container(
-                alignment: Alignment.centerRight,
-                child: Text(
-                  'ポイントです！',
-                  style: TextStyle(
-                      fontSize: shortestSide / 30,
-                      fontWeight: FontWeight.bold,
-                      color: Styles.commonTextColor),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.indigo[800],
+                  padding: EdgeInsets.symmetric(horizontal: 48),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(24),
+                  ),
                 ),
-              )
+                onPressed: () {},
+                child: Text('応募する！', style: TextStyle(color: Colors.white)),
+              ),
             ]),
       ),
     );
@@ -160,7 +175,14 @@ class TopPage extends ConsumerWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Text(
-            'アイス',
+            'あいけんコンテスト',
+            style: TextStyle(
+                fontSize: shortestSide / titleSize,
+                color: Styles.secondaryTextColor,
+                fontWeight: FontWeight.bold),
+          ),
+          Text(
+            'Season1',
             style: TextStyle(
                 fontSize: shortestSide / titleSize,
                 color: Styles.secondaryTextColor,
@@ -188,42 +210,9 @@ class TopPage extends ConsumerWidget {
       height: shortestSide / 2.5,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15.0),
-        child: Column(mainAxisAlignment: MainAxisAlignment.spaceAround,
+        /*child: Column(mainAxisAlignment: MainAxisAlignment.spaceAround,
             //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-                SizedBox(
-                  width: 120,
-                  height: 120,
-                  child: Image.asset('images/100p.png'),
-                ),
-                Text(
-                  '>>',
-                  style: TextStyle(
-                      fontSize: shortestSide / 19,
-                      color: Styles.commonTextColor,
-                      fontWeight: FontWeight.bold),
-                ),
-                SizedBox(
-                  width: 160,
-                  height: 160,
-                  child: Image.asset('images/ICE_CARD1.png'),
-                ),
-              ]),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.indigo[800],
-                  padding: EdgeInsets.symmetric(horizontal: 48),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(24),
-                  ),
-                ),
-                onPressed: () async {
-                  await Navigator.of(context).pushNamed('/pay');
-                },
-                child: Text('交換する！', style: TextStyle(color: Colors.white)),
-              ),
-            ]),
+            children: [Text('-結果-')]),*/
       ),
     );
   }
@@ -236,7 +225,7 @@ class TopPage extends ConsumerWidget {
         height: 70,
         color: Styles.primaryColor700,
         child: Center(
-          child: Text('【中能登町】実証実験は8/2〜8/19です。',
+          child: Text('ウィークリーは11/5~11/12です。',
               style: TextStyle(
                   fontSize: shortestSide / 25,
                   color: Styles.commonTextColor,

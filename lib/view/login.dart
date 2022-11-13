@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mycloud/config/styles.dart';
 import 'package:mycloud/provider/login_provider.dart';
 import 'package:mycloud/provider/login_state.dart';
 
@@ -16,8 +17,14 @@ class LoginPage extends ConsumerWidget {
     final bool isLoginMode = loginState.isLoginMode;
 
     return Scaffold(
-      appBar:
-          AppBar(title: isLoginMode ? const Text('ログイン') : const Text('新規登録')),
+      appBar: AppBar(
+          shape:
+              Border(bottom: BorderSide(color: Styles.primaryColor, width: 3)),
+          backgroundColor: Colors.white,
+          title: isLoginMode
+              ? const Text('ログイン', style: TextStyle(color: Styles.primaryColor))
+              : const Text('新規登録',
+                  style: TextStyle(color: Styles.primaryColor))),
       body: Center(
         child: Container(
           padding: const EdgeInsets.all(24),

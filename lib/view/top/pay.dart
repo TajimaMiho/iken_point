@@ -24,7 +24,10 @@ class PayPage extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("あいすと交換"),
+        title: const Text(
+          "あいすと交換",
+          style: TextStyle(color: Colors.white),
+        ),
       ),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(

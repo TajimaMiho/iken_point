@@ -3,11 +3,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mycloud/config/styles.dart';
 import 'package:mycloud/gen/assets.gen.dart';
+import 'package:mycloud/view/addpage.dart';
 import 'package:mycloud/view/top/my_page.dart';
 import 'package:mycloud/view/top/top_page.dart';
 
 class TopPageRoute extends ConsumerWidget {
-  final _pageWidgets = [TopPage(), HistoryPoint()];
+  final _pageWidgets = [AddPage(), TopPage(), HistoryPoint()];
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -28,6 +29,20 @@ class TopPageRoute extends ConsumerWidget {
         ),
         child: BottomNavigationBar(
           items: <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+                //違う画面にいる時
+                icon: _buildNavigationIconWithName(
+                  Icon(Icons.star_purple500,
+                      size: iconSize, color: Styles.secondaryColor),
+                  'ためる',
+                ),
+                //ホーム画面にいるとき
+                activeIcon: _buildNavigationIconWithName(
+                    Icon(Icons.star_purple500,
+                        size: iconSize, color: Styles.primaryColor),
+                    'ためる',
+                    isFocus: true),
+                label: 'ためる'),
             BottomNavigationBarItem(
                 //違う画面にいる時
                 icon: _buildNavigationIconWithName(
@@ -81,5 +96,5 @@ class TopPageRoute extends ConsumerWidget {
 }
 
 final currentIndexProvider = StateProvider((ref) {
-  return 0;
+  return 1;
 });
