@@ -3,19 +3,27 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mycloud/config/styles.dart';
 import 'package:mycloud/gen/assets.gen.dart';
+import 'package:mycloud/models/point.dart';
+import 'package:mycloud/models/user/user.dart';
+import 'package:mycloud/provider/login_provider.dart';
+import 'package:mycloud/service/providers_provider.dart';
 import 'package:mycloud/view/addpage.dart';
+import 'package:mycloud/view/givepage.dart';
 import 'package:mycloud/view/top/my_page.dart';
 import 'package:mycloud/view/top/top_page.dart';
 
 class TopPageRoute extends ConsumerWidget {
-  final _pageWidgets = [AddPage(), TopPage(), HistoryPoint()];
+  final _pageWidgets = [AddPage(), TopPage(), HistoryPoint(), GivePoint()];
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    //Point point = ref.watch(pointProvider).point;
+    final User user = ref.watch(loginProvider).user;
     int _currentIndex = ref.watch(currentIndexProvider); //下のバーの番号取得
     final Size size =
         MediaQuery.of(context).size; //様々なデバイス、設定（文字の大きさ、スマホの向きなど）のサイズを取得
     final double iconSize = size.shortestSide / 10; //上のやつに合わせた大きさにする
+    final email = user.email;
     return Scaffold(
       body: _pageWidgets.elementAt(_currentIndex), //下のバーの何番（どのページ）をbodyにする
       bottomNavigationBar: Container(
@@ -68,6 +76,18 @@ class TopPageRoute extends ConsumerWidget {
                     '履歴',
                     isFocus: true),
                 label: '履歴'),
+            if (email == 'i211322@gm.ishikawa-nct.ac.jp')
+              BottomNavigationBarItem(
+                  icon: _buildNavigationIconWithName(
+                      Icon(Icons.add,
+                          size: iconSize, color: Styles.secondaryColor),
+                      '付与'),
+                  activeIcon: _buildNavigationIconWithName(
+                      Icon(Icons.add,
+                          size: iconSize, color: Styles.primaryColor),
+                      '付与',
+                      isFocus: true),
+                  label: '付与'),
           ],
           currentIndex: _currentIndex,
           fixedColor: Styles.accentColor,

@@ -53,7 +53,7 @@ class HistoryPoint extends ConsumerWidget {
       appBar: AppBar(
           shape:
               Border(bottom: BorderSide(color: Styles.primaryColor, width: 3)),
-          title: Text('履歴', style: TextStyle(color: Styles.primaryColor)),
+          title: Text('あいぽい', style: TextStyle(color: Styles.primaryColor)),
           backgroundColor: Colors.white),
       body: SingleChildScrollView(
         //はみ出ないようにしている
