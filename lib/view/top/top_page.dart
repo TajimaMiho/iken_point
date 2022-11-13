@@ -40,6 +40,7 @@ class TopPage extends ConsumerWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  buildNewsBand(shortestSide),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     //crossAxisAlignment: CrossAxisAlignment.start,
@@ -157,29 +158,11 @@ class TopPage extends ConsumerWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Text(
-            'アイス券',
+            'アイス',
             style: TextStyle(
                 fontSize: shortestSide / 19,
                 color: Styles.secondaryTextColor,
                 fontWeight: FontWeight.bold),
-          ),
-          Container(
-            child: Row(
-              children: [
-                SizedBox(
-                  width: 40,
-                  height: 30,
-                  child: Image.asset('images/ICE_CARD2.png'),
-                ),
-                Text(
-                  '  ×1',
-                  style: TextStyle(
-                      fontSize: shortestSide / 19,
-                      color: Styles.secondaryTextColor,
-                      fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
           ),
         ],
       ),
@@ -208,8 +191,8 @@ class TopPage extends ConsumerWidget {
             children: [
               Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
                 SizedBox(
-                  width: 80,
-                  height: 80,
+                  width: 120,
+                  height: 120,
                   child: Image.asset('images/100p.png'),
                 ),
                 Text(
@@ -220,8 +203,8 @@ class TopPage extends ConsumerWidget {
                       fontWeight: FontWeight.bold),
                 ),
                 SizedBox(
-                  width: 123,
-                  height: 90,
+                  width: 160,
+                  height: 160,
                   child: Image.asset('images/ICE_CARD1.png'),
                 ),
               ]),
@@ -239,6 +222,24 @@ class TopPage extends ConsumerWidget {
                 child: Text('交換する！', style: TextStyle(color: Colors.white)),
               ),
             ]),
+      ),
+    );
+  }
+
+  Widget buildNewsBand(double shortestSide) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 15),
+      child: Container(
+        width: shortestSide,
+        height: 70,
+        color: Styles.primaryColor700,
+        child: Center(
+          child: Text('【中能登町】実証実験は8/2〜8/19です。',
+              style: TextStyle(
+                  fontSize: shortestSide / 25,
+                  color: Styles.commonTextColor,
+                  fontWeight: FontWeight.bold)),
+        ),
       ),
     );
   }
