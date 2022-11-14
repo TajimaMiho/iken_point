@@ -30,11 +30,17 @@ class GivePoint extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "おくる",
-          style: TextStyle(color: Colors.white),
-        ),
-      ),
+          shape:
+              Border(bottom: BorderSide(color: Styles.primaryColor, width: 3)),
+          title: Container(
+            width: 150,
+            height: 30,
+            child: Image.asset(
+              'images/Icon.png',
+              fit: BoxFit.contain,
+            ),
+          ),
+          backgroundColor: Colors.white),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Column(
@@ -83,7 +89,7 @@ class GivePoint extends ConsumerWidget {
                           style: TextStyle(color: Colors.white),
                         ),
                         onPressed: () {
-                          pay(context, ref);
+                          gift(context, ref);
                         }),
                   ),
                 ],
@@ -93,73 +99,18 @@ class GivePoint extends ConsumerWidget {
     );
   }
 
-  /* Widget pointTile(String description, String point, double shortestSide,
-      {bool isWhite = false}) {
-    return Padding(
-      padding: const EdgeInsets.all(25),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Flexible(
-            flex: 1,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Text(description,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: isWhite
-                          ? Styles.secondaryColor900
-                          : Styles.secondaryColor,
-                    )),
-                Container(
-                    height: 60, width: 1.5, color: Styles.secondaryColor900),
-              ],
-            ),
-          ),
-          Flexible(
-            flex: 2,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Text(point,
-                    style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                      color: isWhite
-                          ? Styles.secondaryColor900
-                          : Styles.secondaryColor,
-                    )),
-                Text('pt',
-                    style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
-                      color: isWhite
-                          ? Styles.secondaryColor900
-                          : Styles.secondaryColor,
-                    )),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }*/
-
-  Future pay(BuildContext context, WidgetRef ref) async {
+  Future gift(BuildContext context, WidgetRef ref) async {
     var rand = math.Random();
-    String userInput = ref.watch(DetailInputProvider);
+    String DetailInput = ref.watch(DetailInputProvider);
     String numberInput = ref.watch(numberInputProvider);
     String EmailInput = ref.watch(EmailInputProvider);
     Point point = ref.watch(pointProvider).point;
     final user = ref.watch(loginProvider);
-    if (numberInput.isEmpty ||
-        int.parse(userInput) <= 0 ||
-        point.point < int.parse(userInput)) {
+    /*if (numberInput.isEmpty ||
+        int.parse(numberInput) <= 0 ||
+        point.point < int.parse(numberInput)) {
       return null;
-    }
+    }*/
     int updatePoint = point.point + int.parse(numberInput);
     //int updateUsedPoint = point.usedPoint + int.parse(numberInput);
     ref.read(pointProvider.notifier).updatePoint(
@@ -170,7 +121,7 @@ class GivePoint extends ConsumerWidget {
     await FirebaseFirestore.instance.collection('posts').doc().set({
       'point_of_change': numberInput,
       'transaction': '',
-      'way': userInput,
+      'way': DetailInput,
       'current_point': updatePoint,
       'email': EmailInput,
       'date': date
@@ -181,8 +132,29 @@ class GivePoint extends ConsumerWidget {
         .doc(user.email)
         .update({
       'point': updatePoint,
-      'used_point': 0,
       'date': DateTime.now().toLocal().toIso8601String(),
     });
+
+    await showDialog(
+      context: context,
+      builder: (_) {
+        return AlertDialog(
+          title: Text("ポイントを贈る"),
+          content: Text("宛先：" + EmailInput + "\n付与ポイント：" + numberInput),
+          actions: <Widget>[
+            // ボタン領域
+            TextButton(
+              child: Text("Cancel"),
+              onPressed: () => Navigator.pop(context),
+            ),
+            TextButton(
+              child: Text("OK"),
+              onPressed: () => Navigator.pop(context),
+            ),
+          ],
+        );
+      },
+    );
+    await Navigator.of(context).pushNamed('/payed_page');
   }
 }

@@ -30,10 +30,14 @@ class AddPage extends ConsumerWidget {
         appBar: AppBar(
             shape: Border(
                 bottom: BorderSide(color: Styles.primaryColor, width: 3)),
-            title: Text('あいぽい',
-                style: TextStyle(
-                  color: Styles.primaryColor,
-                )),
+            title: Container(
+              width: 200,
+              height: 40,
+              child: Image.asset(
+                'images/Icon.png',
+                fit: BoxFit.contain,
+              ),
+            ),
             backgroundColor: Colors.white),
         body: Container(
           color: Styles.pageBackground,
@@ -127,7 +131,7 @@ class AddPage extends ConsumerWidget {
               Container(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'お題は',
+                  'お題は...',
                   style: TextStyle(
                       fontSize: shortestSide / 30,
                       color: Styles.commonTextColor,
@@ -137,16 +141,16 @@ class AddPage extends ConsumerWidget {
               Container(
                 alignment: Alignment.center,
                 child: Text(
-                  '「アクションゲーム」',
+                  '「パズルゲームを作ろう！」',
                   style: TextStyle(
-                      fontSize: shortestSide / 12,
+                      fontSize: shortestSide / 18,
                       fontWeight: FontWeight.bold,
                       color: Styles.commonTextColor),
                 ),
               ),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.indigo[800],
+                  primary: Styles.primaryColor,
                   padding: EdgeInsets.symmetric(horizontal: 48),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(24),

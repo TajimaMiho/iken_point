@@ -31,18 +31,27 @@ class TopPage extends ConsumerWidget {
         appBar: AppBar(
             shape: Border(
                 bottom: BorderSide(color: Styles.primaryColor, width: 3)),
-            title: Text('あいぽい', style: TextStyle(color: Styles.primaryColor)),
+            title: Container(
+              width: 150,
+              height: 30,
+              child: Image.asset(
+                'images/Icon.png',
+                fit: BoxFit.contain,
+              ),
+            ),
             backgroundColor: Colors.white),
         body: Container(
           color: Styles.pageBackground,
           child: ListView(
             children: [
-              SizedBox(height: shortestSide / 20),
               //buildNewsBand(shortestSide),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   buildNewsBand(shortestSide),
+                  SizedBox(
+                    height: 10,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     //crossAxisAlignment: CrossAxisAlignment.start,
@@ -212,7 +221,7 @@ class TopPage extends ConsumerWidget {
               ]),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.indigo[800],
+                  primary: Styles.primaryColor,
                   padding: EdgeInsets.symmetric(horizontal: 48),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(24),
@@ -229,20 +238,20 @@ class TopPage extends ConsumerWidget {
   }
 
   Widget buildNewsBand(double shortestSide) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 15),
-      child: Container(
-        width: shortestSide,
-        height: 70,
-        color: Styles.primaryColor700,
-        child: Center(
-          child: Text('【中能登町】実証実験は8/2〜8/19です。',
-              style: TextStyle(
-                  fontSize: shortestSide / 25,
-                  color: Styles.commonTextColor,
-                  fontWeight: FontWeight.bold)),
-        ),
+    //return Padding(
+    //padding: const EdgeInsets.symmetric(vertical: 15),
+    return Container(
+      width: double.infinity,
+      height: 70,
+      color: Styles.primaryColor700,
+      child: Center(
+        child: Text('【速報！】今週末にハッカソンがあります。',
+            style: TextStyle(
+                fontSize: shortestSide / 25,
+                color: Color(0xFFffffff),
+                fontWeight: FontWeight.bold)),
       ),
     );
+    //);
   }
 }
