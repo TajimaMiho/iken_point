@@ -31,8 +31,8 @@ class AddPage extends ConsumerWidget {
             shape: Border(
                 bottom: BorderSide(color: Styles.primaryColor, width: 3)),
             title: Container(
-              width: 200,
-              height: 40,
+              width: 150,
+              height: 30,
               child: Image.asset(
                 'images/Icon.png',
                 fit: BoxFit.contain,
@@ -211,12 +211,27 @@ class AddPage extends ConsumerWidget {
         ),
       ),
       width: shortestSide / 1.1,
-      height: shortestSide / 2.5,
+      height: shortestSide / 2.4,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15.0),
-        /*child: Column(mainAxisAlignment: MainAxisAlignment.spaceAround,
+        child: Column(mainAxisAlignment: MainAxisAlignment.spaceAround,
             //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [Text('-結果-')]),*/
+            children: [
+              Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                Text(
+                  '-結果-',
+                  style: TextStyle(fontSize: 28),
+                ),
+              ]),
+              Container(
+                width: 170,
+                height: 170,
+                child: Image.asset(
+                  'images/logo.png',
+                  fit: BoxFit.contain,
+                ),
+              ),
+            ]),
       ),
     );
   }

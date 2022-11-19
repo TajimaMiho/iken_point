@@ -54,8 +54,8 @@ class HistoryPoint extends ConsumerWidget {
           shape:
               Border(bottom: BorderSide(color: Styles.primaryColor, width: 3)),
           title: Container(
-            width: 200,
-            height: 40,
+            width: 150,
+            height: 30,
             child: Image.asset(
               'images/Icon.png',
               fit: BoxFit.contain,
